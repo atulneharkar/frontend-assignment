@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SubMenu from "./SubMenu";
+import { useOnOutsideClick } from "../../custom-hooks/useOnOutsideClick";
 
 function MenuItem({ item }) {
   const [showSubmenu, setShowSubmenu] = useState(false);
+  const menuItemRef = useRef(null);
+
+  useOnOutsideClick(menuItemRef, () => {
+    if (showSubmenu) setShowSubmenu(false);
+  });
 
   return (
-    <li className="relative desktop:mr-5 mobile:mb-5">
+    <li className="relative desktop:mr-6 mobile:mb-5" ref={menuItemRef}>
       {item && item.subMenu && item.subMenu.length > 0 ? (
         <>
           <div
-            className="flex items-end"
+            className="flex items-end cursor-pointer"
             onClick={() => setShowSubmenu((previousVal) => !previousVal)}
           >
             <span>{item.title}</span>

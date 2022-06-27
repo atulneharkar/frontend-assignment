@@ -14,7 +14,10 @@ function Card({ card }) {
           <h5 className="text-gray-900 text-xl font-medium mb-2 mobile:mb-0 mobile:text-center break-words overflow-hidden whitespace-nowrap text-ellipsis">
             {card.Title}
           </h5>
-          <p className="text-gray-700 text-sm mobile:hidden overflow-hidden whitespace-nowrap text-ellipsis">
+          <p
+            className="text-gray-400 text-sm mobile:hidden p-2 pt-0 card-description leading-5 max-h-10 overflow-hidden"
+            title={card.Body}
+          >
             {card.Body}
           </p>
         </div>

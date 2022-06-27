@@ -47,11 +47,11 @@ function Login() {
     <div className="login-wrapper bg-gray-200 h-screen overflow-y-scroll">
       <div className="flex justify-center items-center flex-wrap h-full text-gray-800">
         <div className="left-wrapper w-1/2 pr-10 mobile:w-full mobile:p-8 desktop:flex desktop:justify-end">
-          <div className="p-12 rounded-lg shadow-lg bg-white desktop:w-11/12 desktop:max-w-2xl">
-            <h5 className="text-gray-900 text-xl leading-tight font-medium mb-7">
+          <div className="desktop:p-16 p-12 rounded-lg shadow-lg bg-white desktop:w-11/12 desktop:max-w-xl">
+            <h5 className="text-3xl text-gray-900 font-semibold mb-7">
               CompanyX
             </h5>
-            <h5 className="text-gray-900 text-xl leading-tight font-medium mb-5">
+            <h5 className="text-gray-900 text-xl font-semibold mb-5">
               Login
             </h5>
             <form onSubmit={(e) => handleSubmit(e)}>

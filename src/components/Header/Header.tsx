@@ -1,16 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import classNames from "classnames";
 import { useNavigate, Link } from "react-router-dom";
 import { getUserData, clearUserInfo } from "../../helpers/userHelper";
 import MenuItem from "../../components/Menu/MenuItem";
+import { useOnOutsideClick } from "../../custom-hooks/useOnOutsideClick";
 import "./Header.scss";
 
 function Header() {
   const userData = getUserData();
   const [user, setUser] = useState(userData);
   const [openSideNav, setOpenSideNav] = useState(false);
-  const [showMyOptions, setShowMyOptions] = useState(false);
+  const [showMyAccount, setShowMyAccount] = useState(false);
   const navigate = useNavigate();
+  const myAccountRef = useRef(null);
+
+  useOnOutsideClick(myAccountRef, () => {
+    if (showMyAccount) setShowMyAccount(false);
+  });
 
   const leftMenuItems = [
     {
@@ -60,8 +66,8 @@ function Header() {
       <div className="xl:container mx-auto px-6">
         <div className="header-wrapper text-gray-500 text-sm flex justify-between items-center">
           <div className="flex items-center w-full">
-            <h1 className="text-3xl mobile:text-base text-gray-900 font-semibold logo">
-            <Link to="/home">CompanyX</Link>
+            <h1 className="text-3xl mobile:text-xl text-gray-900 font-semibold logo">
+              <Link to="/home">CompanyX</Link>
             </h1>
             <div className="w-full">
               <svg
@@ -83,7 +89,7 @@ function Header() {
                 className={classNames({
                   flex: true,
                   "justify-between": true,
-                  "pl-12": true,
+                  "pl-14": true,
                   "menu-wrapper": true,
                   "top-0": true,
                   "right-0": true,
@@ -109,11 +115,11 @@ function Header() {
                   })}
                 </ul>
                 <ul className="right-menu">
-                  <li className="relative">
+                  <li className="relative" ref={myAccountRef}>
                     <div
-                      className="flex items-end"
+                      className="flex items-end cursor-pointer"
                       onClick={() =>
-                        setShowMyOptions((previousVal) => !previousVal)
+                        setShowMyAccount((previousVal) => !previousVal)
                       }
                     >
                       <span>{user?.username}</span>
@@ -133,12 +139,12 @@ function Header() {
                     </div>
                     <ul
                       className={`${
-                        showMyOptions ? "block" : "hidden"
-                      } desktop:absolute bg-white py-1 desktop:shadow-lg desktop:mt-2 right-0 desktop:w-36 sub-menu desktop:break-all desktop:border desktop:border-slate-400 desktop:border-solid desktop:rounded`}
+                        showMyAccount ? "block" : "hidden"
+                      } desktop:absolute bg-white py-2 desktop:shadow-lg desktop:mt-2 right-0 desktop:w-30 sub-menu desktop:break-all desktop:border desktop:border-slate-400 desktop:border-solid desktop:rounded z-10`}
                     >
-                      <li>
+                      <li className="cursor-pointer">
                         <span
-                          className="text-sm p-2 block hover:bg-gray-100"
+                          className="text-sm py-1 px-4 block hover:bg-gray-100"
                           onClick={() => logout()}
                         >
                           Logout

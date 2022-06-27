@@ -52,8 +52,8 @@ function Home() {
                       </h3>
 
                       <div className="grid grid-cols-4 gap-5 mobile:grid-cols-1 mobile:gap-6">
-                        {section.Cards.map((card) => {
-                          return <Card card={card} />;
+                        {section.Cards.map((card, index) => {
+                          return <Card card={card} key={index} />;
                         })}
                       </div>
                     </div>
